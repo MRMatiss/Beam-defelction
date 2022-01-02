@@ -1,4 +1,4 @@
-// # Beam-defelction
+// # Beam-deflection
 //c program to calculate beam deflection depending of support types and applied loading. Language:Latvian
 
 /**********************************************************************
