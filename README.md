@@ -1,55 +1,55 @@
 // # Beam-deflection
-//c program to calculate beam deflection depending of support types and applied loading. Language:Latvian
+//c program to calculate beam deflection depending of support types and applied loading.
 
-/**********************************************************************
-* Izlieces aprēķins sijai atkarībā no balstījuma un slogojumam veida. *
-* Izmantotie apzīmējumi un to mērvienības:                            *
-* q   => slodze (kN/m vai kN)                                         *
-* L   => laidums (cm)                                                 *
-* E   => elastības modulis (kN/cm^2)                                  *
-* I   => inerces moments (cm^4)                                       *
-* u   => izliece (cm)                                                 *
-**********************************************************************/
-#include <stdio.h>                                                                                  //ievades, izvades funkcijas
-#include<math.h>                                                                                    // matemātiskās funkcijas
+/****************************************************************************
+* Beam deflection calculation depending of support types and applied loading*
+* Used variables and units:                     	                    *
+* q   => load (kN/m or kN)                                                  *
+* L   => length (cm)                                                        *
+* E   => modulus of elasticity (kN/cm^2)                                    *
+* I   => moment of inertia (cm^4)                                           *
+* u   => deflection (cm)                                                    *
+****************************************************************************/
+#include <stdio.h>                                                                                  
+#include<math.h>                                                                                    
 
-int main()                                                                                          //galvenā funkcija
-{                                                                                                   //funkcijas ķermeņa sākums
-    char izvele;                                                                                    //lokālie mainīgie (veseli skaitļi)
-    float q,L,E,u,I;                                                                                //lokālie mainīgie (reālie skaitļi)
-    int veids;                                                                                      //lokālie mainīgie (veseli skaitļi)
-    do {                                                                                            //cikls ar pārbaudi cikla beigās pēc nosacījuma
-    printf("Ievadiet sijas materiāla elastības moduli E (kN/cm^2) un inerces momentu I(cm^4):\n");  //teksta izvade un \n pārceļ kursoru jaunā rindā
-    scanf("%f %f",&E,&I);                                                                           //nolasa mainīgos un piešķir vērtības
-    printf("Ievadiet sijas laidumu: L(cm):");                                                       //teksta izvade
-    scanf("%f",&L);                                                                                 //nolasa mainīgos un piešķir vērtības
-    printf("\n Izvēlieties atbisltošo sijas balstījuma un slogojuma veidu:\n");                     //teksta izvade
-        printf(" 1 - divbalstu sija, koncentrēta slodze\n");                                        //teksta izvade
-        printf(" 2 - divbalstu sija, vienmērīgi izkliedēta slodze\n");                              //teksta izvade
-        printf(" 3 - konsolsija, koncentrēta slodze galā\n");                                       //teksta izvade
-        printf(" 4 - konsolsija, vienmērīgi izkliedēta slodze\n");                                  //teksta izvade
-        printf(" Izvēlieties atbisltošo veidu (1 līdz 4): ");                                       //teksta izvade
-        scanf("%d", &veids);                                                                        //nolasa mainīgos un piešķir vērtības
-        switch(veids) {                                                                             //dod iespēju izvēlēties vienu no alternatīvām
-          case 1: printf("\n Ievadiet koncentrēto slodzi P (kN): "); break;                         //iterācija ar teksta izvadi un pārtraukumu ar izeju no tās
-          case 2: printf("\n Ievadiet izkliedēto slodzi q (kN/m): "); break;                        //iterācija ar teksta izvadi un pārtraukumu ar izeju no tās
-          case 3: printf("\n Ievadiet koncentrēto slodzi P (kN): "); break;                         //iterācija ar teksta izvadi un pārtraukumu ar izeju no tās
-          case 4: printf("\n Ievadiet izkliedēto slodzi q (kN/m): ");                               //iterācija ar teksta izvadi un pārtraukumu ar izeju no tās
-        }                                                                                           //cikla robeža
-    scanf("%f",&q);                                                                                 //nolasa mainīgos un piešķir vērtības
-    switch(veids) {                                                                                 //dod iespēju izvēlēties vienu no alternatīvām
-          case 1: u=q*0.01*pow(L,3)/(48*E*I);                                                       //iterācija ar formulu un pow funkciju, kas atgriež vērtību, ko iegūst argumentu base kāpinot pakāpē p
+int main()                                                                                          
+{                                                                                                   
+    char choice;                                                                                    
+    float q,L,E,u,I;                                                                                
+    int type;                                                                                      
+    do {                                                                                            
+    printf("Enter the beam material modulus of elasticity E (kN/cm^2)and moment of inertia I(cm^4):\n");  
+    scanf("%f %f",&E,&I);                                                                           
+    printf("Enter the legth of beam: L(cm):");                                                       
+    scanf("%f",&L);                                                                                 
+    printf("\n Choose the beam support type and loading:\n");                     
+        printf(" 1 - two support beam, concentrated load at beam free end\n");                                        
+        printf(" 2 - two support beam, uniformly distributed load\n");                             
+        printf(" 3 - single support beam with free end, concentrated load at beam free end\n");                                       
+        printf(" 4 - single support beam with free end, uniformly distributed load\n");                                  
+        printf(" Choose the appropriate type (1 to 4): ");                                       
+        scanf("%d", &type);                                                                        
+        switch(type) {                                                                             
+          case 1: printf("\n Ievadiet koncentrēto slodzi P (kN): "); break;                         
+          case 2: printf("\n Ievadiet izkliedēto slodzi q (kN/m): "); break;                        
+          case 3: printf("\n Ievadiet koncentrēto slodzi P (kN): "); break;                         
+          case 4: printf("\n Ievadiet izkliedēto slodzi q (kN/m): ");                               
+        }                                                                                          
+    scanf("%f",&q);                                                                                 
+    switch(type) {                                                                                 
+          case 1: u=q*0.01*pow(L,3)/(48*E*I);                                                      
 			      break;
-          case 2: u=5*q*0.01*pow(L,4)/(384*E*I);                                                    //iterācija ar formulu un pow funkciju, kas atgriež vērtību, ko iegūst argumentu base kāpinot pakāpē p
+          case 2: u=5*q*0.01*pow(L,4)/(384*E*I);                                                     
 			      break;
-          case 3: u=q*0.01*pow(L,3)/(3*E*I);                                                        //iterācija ar formulu un pow funkciju, kas atgriež vērtību, ko iegūst argumentu base kāpinot pakāpē p
+          case 3: u=q*0.01*pow(L,3)/(3*E*I);                                                       
 			      break;
-          case 4: u=q*0.01*pow(L,4)/(8*E*I);                                                        //iterācija ar formulu un pow funkciju, kas atgriež vērtību, ko iegūst argumentu base kāpinot pakāpē p
+          case 4: u=q*0.01*pow(L,4)/(8*E*I);                                                       
         }
-    printf("\n Sijas izliece (cm) = %.2f\n\n", u);                                                  //% norāda vietu un izvada skaitli ar 2 cipariem aiz komata
-    printf(" Vai vēlieties atkārtot? (Y/N): ");                                                     //teksta izvade
-    scanf("%s", &izvele);                                                                           //nolasa ievadīto simbolu
-    } while (izvele=='y');                                                                          //cikla pārbaudes nosacījums
-    printf("\n");                                                                                   //teksta izvade
+    printf("\n Beam deflection (cm) = %.2f\n\n", u);                                                  
+    printf(" Do You want to repeat? (Y/N): ");                                                     
+    scanf("%s", &choice);                                                                           
+    } while (choice=='y');                                                                          
+    printf("\n");                                                                                   
     return 0;
 }
